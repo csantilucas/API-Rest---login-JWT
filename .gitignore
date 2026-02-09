@@ -12,7 +12,8 @@ dist/
 build/
 
 # Variáveis de Ambiente 
-.env.local
+.env
+.local
 
 # Arquivos do Sistema / IDE
 .DS_Store
