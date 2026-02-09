@@ -4,4 +4,4 @@ const app = express()
 dotenv.config()
 
 const port = process.env.PORT
-app.listen(port,() =>{console.log("Server Running", port)})
+app.listen(port,() =>{console.log("Server Running")})
