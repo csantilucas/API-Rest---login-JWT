@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node app.ts"
+    "start": "node app.ts",
+    "build": "npx tsc",
+    "dev": "npx tsx --watch app.ts"
+
   },
   "keywords": [],
   "author": "",
