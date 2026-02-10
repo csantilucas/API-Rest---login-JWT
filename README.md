@@ -1,2 +1,13 @@
 # API-Rest---login-JWT
-Project 
+
+Project
+
+dependences:
+
+-express
+
+-mongoose
+
+-tsx
+
+-ts
