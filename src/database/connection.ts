@@ -19,7 +19,7 @@ export async function connection() {
         await mongoose.connect(url, {
             user: user,
             pass: pwd,
-            dbName: "admin",
+            dbName: "API",
             serverSelectionTimeoutMS: 5000, // tempo limite para selecionar servidor
             socketTimeoutMS: 45000,         // tempo limite de socket
             maxPoolSize: 10,                // número máximo de conexões no pool

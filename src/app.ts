@@ -9,13 +9,9 @@ const port = process.env.PORT
 import userRoutes from "./routes/userRouter.js"
 import { connection } from "./database/connection.js"
 
+connection()
 
 app.use(express.json());
 app.use("/user", userRoutes)
-
-
-
- 
 app.listen(port,() =>{console.log(`Server Running on localhost:${port}`)})
 
-connection()

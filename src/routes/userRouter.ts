@@ -18,6 +18,4 @@ router.post("/",(req,res)=>{
     userController.users(req,res)
 })
 
-
-
 export default router
