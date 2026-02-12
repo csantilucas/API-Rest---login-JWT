@@ -1,6 +1,7 @@
-import { response, type Request, type Response } from "express";
+import {type Request, type Response } from "express";
 import { userSchema } from "../models/User.js";
 import mongoose from "mongoose";
+import { hashPassword } from "../utils/hash.js";
 
 
 const User = mongoose.model("User", userSchema)
@@ -8,13 +9,17 @@ const User = mongoose.model("User", userSchema)
 export class UserController {
 
     async register(req: Request, res: Response) {
+        
+        
 
         try {
+            
+            const hashPass = await hashPassword(req.body.password)
 
             const user = new User({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: hashPass
             })
 
             const userSaved = await user.save()
