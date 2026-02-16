@@ -6,3 +6,4 @@
 > - mongoose
 > - tsx
 > - ts
+> - bcrypt

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "tsx ./src/app.ts",
+    "start": "node ./dist/app.js",
     "build": "npx tsc",
     "dev": "npx tsx --watch ./src/app.ts",
     "setup": "echo installing all dependencies && npm install"
@@ -22,12 +22,14 @@
   },
   "homepage": "https://github.com/csantilucas/API-Rest---login-JWT#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "mongoose": "^9.2.1",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^25.2.3",
