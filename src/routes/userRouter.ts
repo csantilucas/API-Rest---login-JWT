@@ -1,5 +1,6 @@
 import  express from "express"
-import { UserController} from "../controlers/userController.js"
+import { UserController } from "../controlers/userController.js";
+
 const router = express.Router()
 
 const userController = new UserController();
@@ -11,11 +12,13 @@ router.post("/register",(req,res)=>{
 
 router.post("/login",(req,res)=>{
     userController.login(req,res)
+
     
 })
 
-router.post("/",(req,res)=>{
+router.get("/",(req,res)=>{
     userController.users(req,res)
+    
 })
 
 export default router

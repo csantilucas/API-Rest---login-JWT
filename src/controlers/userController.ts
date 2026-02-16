@@ -8,9 +8,7 @@ const User = mongoose.model("User", userSchema)
 
 export class UserController {
 
-    async register(req: Request, res: Response) {
-        
-        
+    async register(req: Request, res: Response) {  
 
         try {
             
@@ -38,7 +36,7 @@ export class UserController {
 
     }
     async users(req: Request, res: Response) {
-        res.send("Rota para retornar usuario")
+        res.send(`<h1>Usuarios</h1>`)
 
     }
 
