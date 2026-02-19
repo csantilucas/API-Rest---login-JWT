@@ -8,7 +8,7 @@ let user = {
 
 
 export function createToken(data:{name:string, id:string, email:string},secret:string) {
-    return jwt.sign(data, secret, { expiresIn: '1h' });
+    return jwt.sign(data, secret);
 }
 
 
