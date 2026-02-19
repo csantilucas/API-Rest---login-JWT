@@ -6,9 +6,9 @@ dotenv.config()
 
 export async function connection() {
 
-    const user = process.env.userBD ||"apiUser";
+    const user = process.env.userBD ||"userApi";
     const pwd = process.env.pwdBD || "112658n";
-    const url = process.env.urlBD ||"mongodb://127.0.0.1:27017/API";
+    const url = process.env.urlBD ||"mongodb://localhost:27017/API";
 
     if (!user || !pwd || !url) {
         throw new Error("Variáveis de ambiente de conexão não configuradas!");
@@ -20,6 +20,7 @@ export async function connection() {
             user: user,
             pass: pwd,
             dbName: "API",
+            authSource:"admin",
             serverSelectionTimeoutMS: 5000, // tempo limite para selecionar servidor
             socketTimeoutMS: 45000,         // tempo limite de socket
             maxPoolSize: 10,                // número máximo de conexões no pool

@@ -8,6 +8,7 @@
     "start": "node ./dist/app.js",
     "build": "npx tsc",
     "dev": "npx tsx --watch ./src/app.ts",
+    "test": "node .src/main.js",
     "setup": "echo installing all dependencies && npm install"
   },
   "repository": {
