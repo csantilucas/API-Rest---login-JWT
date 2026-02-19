@@ -12,13 +12,10 @@ router.post("/register",(req,res)=>{
 
 router.post("/login",(req,res)=>{
     userController.login(req,res)
-
-    
 })
 
 router.get("/",(req,res)=>{
     userController.users(req,res)
-    
 })
 
 export default router
