@@ -2,6 +2,13 @@ import { type Request, type Response } from "express";
 import { userSchema } from "../models/User.js";
 import mongoose from "mongoose";
 import { hashCompare, hashPassword } from "../utils/hash.js";
+import { createToken } from "../utils/jwt.js";
+import dotenv from "dotenv"
+dotenv.config()
+
+
+
+
 
 
 const User = mongoose.model("User", userSchema)
@@ -11,9 +18,9 @@ export class UserController {
     async register(req: Request, res: Response) {
 
         try {
-            let hasUser = await User.findOne({ "email": req.body.email })
+            let findUser = await User.findOne({ "email": req.body.email })
 
-            if (hasUser) return res.status(400).send("email already exists")
+            if (findUser) return res.status(400).send("email already exists")
             else {
 
                 const hashPass = await hashPassword(req.body.password)
@@ -34,14 +41,20 @@ export class UserController {
             )
         }
     }
+
+
     async login(req: Request, res: Response) {
 
         try {
-            let hasUser = await User.findOne({ "email": req.body.email })
-            if (!hasUser) return res.status(201).send("login falid: email or password incorret")
+            let findUser = await User.findOne({ "email": req.body.email })
+            if (!findUser) return res.status(400).send("login falid: user not find")
 
-            const passUser:boolean = await hashCompare(req.body.password, hasUser.password)
-            if(passUser) return res.status(200).send("user logged")
+            const passUser:boolean = await hashCompare(req.body.password, findUser.password)
+            if(!passUser) return res.status(400).send("incorret email or password")
+
+            if(!process.env.TOKEN_SECRET)return
+            const token:string = createToken({name:findUser.name ,id:findUser.id, email:findUser.email }, process.env.TOKEN_SECRET )
+            res.header("authorizted",token).send("user logged")
 
         } catch (error) {
             res.status(400).json({
