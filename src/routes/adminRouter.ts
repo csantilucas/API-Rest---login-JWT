@@ -6,12 +6,6 @@ const authController = new AuthController()
 
 
 
-router.post("/login",(req,res)=>{
-   
-    
-})
-
-
 
 // No seu arquivo de rotas
 router.get("/", 

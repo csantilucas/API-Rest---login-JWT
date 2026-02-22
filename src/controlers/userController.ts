@@ -7,6 +7,7 @@ import dotenv from "dotenv"
 import { AuthController } from "./authController.js";
 dotenv.config()
 
+import { loginValidate, registerValidate } from "./validate.js";
 
 
 const authController = new AuthController()
@@ -16,9 +17,15 @@ const User = mongoose.model("User", userSchema)
 
 export class UserController {
 
+
     async register(req: Request, res: Response) {
 
         try {
+
+
+            const { error } = registerValidate(req.body);
+            if (error) return res.status(400).send(error.message);
+
             let findUser = await User.findOne({ "email": req.body.email })
 
             if (findUser) return res.status(400).send("email already exists")
@@ -29,10 +36,12 @@ export class UserController {
                     name: req.body.name,
                     email: req.body.email,
                     password: hashPass,
-                    admin:true
+                    admin: true
                 })
 
-                const userSaved = await user.save()
+                const userSaved = await user.save();
+                // Removendo a senha do retorno por segurança
+                const { password, ...userResponse } = userSaved.toObject();
                 res.status(201).send(userSaved)
             }
         } catch (error) {
@@ -48,15 +57,24 @@ export class UserController {
     async login(req: Request, res: Response) {
 
         try {
+
+            
+            const { error } = loginValidate(req.body); 
+            if (error) return res.status(400).send(error.message);
+
             let findUser = await User.findOne({ "email": req.body.email })
             if (!findUser) return res.status(400).send("login falid: user not find")
 
-            const passUser:boolean = await hashCompare(req.body.password, findUser.password)
-            if(!passUser) return res.status(400).send("incorret email or password")
+            const passUser: boolean = await hashCompare(req.body.password, findUser.password)
+            if (!passUser) return res.status(400).send("incorret email or password")
 
-            if(!process.env.TOKEN_SECRET)return
-            const token:string = createToken({name:findUser.name ,id:findUser.id, email:findUser.email, admin:findUser.admin }, process.env.TOKEN_SECRET )
-            res.header("authorizted",token).send("user logged")
+            if (!process.env.TOKEN_SECRET) return
+            const token = createToken(
+                { name: findUser.name, id: findUser.id, email: findUser.email, admin: findUser.admin }, 
+                process.env.TOKEN_SECRET
+            );
+            // 3. Enviando token no header e mensagem no body
+            res.header("Authorization", token).send({ message: "User logged", token });
 
         } catch (error) {
             res.status(400).json({
@@ -65,15 +83,18 @@ export class UserController {
             }
             )
         }
-        
+
 
     }
 
 
-    async users(req: Request, res: Response, next:NextFunction) {
-        //funcao que verifica se o usuario esta logado
-        authController.auth(req,res,next)
-    
+    listAll = async (req: Request, res: Response) => {
+        try {
+            const users = await User.find({}, "-password"); // Busca todos exceto a senha
+            res.send(users);
+        } catch (error) {
+            res.status(500).send("Error fetching users");
+        }
     }
 
 

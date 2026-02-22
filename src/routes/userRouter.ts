@@ -6,20 +6,21 @@ import { AuthController } from "../controlers/authController.js";
 const router = express.Router()
 
 
-
+const authController = new AuthController()
 const userController = new UserController();
 
-router.post("/register",(req,res)=>{
-    userController.register(req,res)
-    
-})
+router.post("/register",userController.register.bind(userController))
 
-router.post("/login",(req,res)=>{
-    userController.login(req,res)
-})
+router.post("/login", userController.login.bind(userController));
 
-router.get("/",(req,res,next)=>{
-    userController.users(req,res,next)
-})
+// ✅ FORMA CORRETA
+router.get("/", 
+    authController.auth.bind(authController), 
+    authController.authAdmin.bind(authController),
+    userController.listAll.bind(userController) // O último envia a resposta
+);
+
+
+
 
 export default router

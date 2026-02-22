@@ -20,7 +20,7 @@ export class AuthController {
         this.authAdmin = this.authAdmin.bind(this);
     }
 
-    async auth (req: Request, res: Response, next: NextFunction) {
+    async auth(req: Request, res: Response, next: NextFunction) {
         let token = req.header("Authorization")
         if (!token) return res.status(401).send("acess denieded")
 
