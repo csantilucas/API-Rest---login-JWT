@@ -8,3 +8,4 @@
 > - ts
 > - bcrypt
 > - webtoken
+> - joi - @hapi;joi

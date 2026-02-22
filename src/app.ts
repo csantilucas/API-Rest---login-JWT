@@ -6,11 +6,15 @@ const port = process.env.PORT
 
 //ROTAS PARA IMPORTAR -----------
 import userRoutes from "./routes/userRouter.js"
+import adminRoutes from "./routes/adminRouter.js"
 import { connection } from "./database/connection.js"
 
 connection()
 
 app.use(express.json());
 app.use("/user", userRoutes)
+
+app.use("/admin", adminRoutes)
+
 app.listen(port,() =>{console.log(`Server Running on localhost:${port}`)})
 

@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 let user = {
     id: "",
@@ -7,7 +10,7 @@ let user = {
 }
 
 
-export function createToken(data:{name:string, id:string, email:string},secret:string) {
+export function createToken(data:{name:string, id:string, email:string, admin:boolean},secret:string) {
     return jwt.sign(data, secret);
 }
 
@@ -16,10 +19,10 @@ export function testToken(token:string,secret:string) {
     try {
         const validDat = jwt.verify(token, secret)
         console.log(validDat)
+        return validDat
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
-
-//createToken()

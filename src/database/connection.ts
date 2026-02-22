@@ -6,9 +6,9 @@ dotenv.config()
 
 export async function connection() {
 
-    const user = process.env.userBD ||"userApi";
-    const pwd = process.env.pwdBD || "112658n";
-    const url = process.env.urlBD ||"mongodb://localhost:27017/API";
+    const user = process.env.userBD;
+    const pwd = process.env.pwd;
+    const url = process.env.url;
 
     if (!user || !pwd || !url) {
         throw new Error("Variáveis de ambiente de conexão não configuradas!");
@@ -27,7 +27,7 @@ export async function connection() {
             minPoolSize: 1,                 // número mínimo de conexões
             connectTimeoutMS: 30000      // tempo limite para conexão inicial
         })
-        console.log("conectado")
+        console.log("conectado to bd")
     } catch (erro) { console.log(erro) }
 
 }
