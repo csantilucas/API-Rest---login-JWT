@@ -11,6 +11,17 @@ export const registerValidate = (data: any) => {
     return schema.validate(data);
 };
 
+export const registerValidateEvent = (data: any) => {
+    const schema = joi.object({
+        title: joi.string().required().min(3).max(50),
+        description: joi.string().required().max(5000), // Removido .describe()
+        date: joi.date().required(),
+        capacity: joi.number().required()
+    });
+
+    return schema.validate(data);
+};
+
 export const loginValidate = (data: any) => {
     
     const schema = joi.object({
@@ -20,3 +31,16 @@ export const loginValidate = (data: any) => {
 
     return schema.validate(data);
 };
+
+
+export const registerValidateLinkEvent = (data: any) => {
+    
+    const schema = joi.object({
+        userID: joi.string().required()
+    });
+
+    return schema.validate(data);
+
+};
+
+

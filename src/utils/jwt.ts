@@ -3,11 +3,7 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-let user = {
-    id: "",
-    "email": "email@gmail.com",
-    "pass": "123"
-}
+
 
 interface data {
     name:string, id:string, email:string, admin:boolean
