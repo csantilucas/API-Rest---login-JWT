@@ -1,6 +1,5 @@
 import { type Request, type Response, type NextFunction } from "express";
-import { userSchema } from "../models/User.js";
-import { createToken, testToken } from "../utils/jwt.js";
+import { testToken } from "../utils/jwt.js";
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -24,7 +23,6 @@ export class AuthController {
         let token = req.header("Authorization")
         if (!token) return res.status(401).send("acess denieded")
 
-        // Remove "Bearer " prefix if present
         if (token.startsWith("Bearer ")) {
             token = token.slice(7)
         }
@@ -45,8 +43,5 @@ export class AuthController {
             res.status(401).send("Acess denied - Not admin")
         }
     }
-
-
-
 
 }

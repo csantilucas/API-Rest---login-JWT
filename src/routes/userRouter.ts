@@ -13,7 +13,7 @@ router.post("/register",userController.register.bind(userController))
 
 router.post("/login", userController.login.bind(userController));
 
-// ✅ FORMA CORRETA
+
 router.get("/", 
     authController.auth.bind(authController), 
     authController.authAdmin.bind(authController),

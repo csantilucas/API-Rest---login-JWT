@@ -69,7 +69,6 @@ export class UserController {
                 { name: findUser.name, id: findUser.id, email: findUser.email, admin: findUser.admin }, 
                 process.env.TOKEN_SECRET
             );
-            // 3. Enviando token no header e mensagem no body
             res.header("Authorization", token).send({ message: "User logged", token });
 
         } catch (error) {
