@@ -14,7 +14,7 @@ router.post("/register",userController.register.bind(userController))
 router.post("/login", userController.login.bind(userController));
 
 
-router.get("/", 
+router.get("/getUsers", 
     authController.auth.bind(authController), 
     authController.authAdmin.bind(authController),
     userController.listAll.bind(userController) // O último envia a resposta

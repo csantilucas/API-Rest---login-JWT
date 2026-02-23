@@ -9,9 +9,12 @@ let user = {
     "pass": "123"
 }
 
+interface data {
+    name:string, id:string, email:string, admin:boolean
+}
 
-export function createToken(data:{name:string, id:string, email:string, admin:boolean},secret:string) {
-    return jwt.sign(data, secret);
+export function createToken(data:data,secret:string) {
+    return jwt.sign(data, secret,{ expiresIn:'5h'});
 }
 
 

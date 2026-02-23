@@ -85,13 +85,14 @@ export class UserController {
 
     listAll = async (req: Request, res: Response) => {
         try {
-            const users = await User.find({}, "-password"); // Busca todos exceto a senha
+            const email:string = req.user.email
+            console.log(email)
+            const users = await User.find({"email": {$ne:email}}, "-password"); // Busca todos exceto a senha
             res.send(users);
         } catch (error) {
             res.status(500).send("Error fetching users");
         }
     }
-
 
 }
 

@@ -36,9 +36,9 @@ export class AuthController {
         }
     }
 
-    async authAdmin(req: Request, res: Response) {
+    async authAdmin(req: Request, res: Response, next:NextFunction) {
         if (req.user && req.user.admin) {
-            res.send("Bem vindo ao admin")
+            next()
         } else {
             res.status(401).send("Acess denied - Not admin")
         }
