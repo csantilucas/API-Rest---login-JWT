@@ -1,19 +1,15 @@
 import { type Request, type Response, type NextFunction } from "express";
-import { userSchema } from "../models/User.js";
+import { User } from "../models/User.js";
 import mongoose from "mongoose";
 import { hashCompare, hashPassword } from "../utils/hash.js";
 import { createToken } from "../utils/jwt.js";
 import dotenv from "dotenv"
-import { AuthController } from "./authController.js";
 dotenv.config()
 
 import { loginValidate, registerValidate } from "./validate.js";
 
 
-const authController = new AuthController()
 
-
-const User = mongoose.model("User", userSchema)
 
 export class UserController {
 

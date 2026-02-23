@@ -6,9 +6,9 @@ dotenv.config()
 
 export async function connection() {
 
-    const user = process.env.userBD;
-    const pwd = process.env.pwd;
-    const url = process.env.url;
+    const user = process.env.user_db;
+    const pwd = process.env.pwd_db;
+    const url = process.env.connection_string;
 
     if (!user || !pwd || !url) {
         throw new Error("Variáveis de ambiente de conexão não configuradas!");
