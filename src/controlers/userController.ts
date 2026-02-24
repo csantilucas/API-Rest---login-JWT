@@ -6,7 +6,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import { loginValidate, registerValidate } from "./validate.js";
-import { getEventsByUser } from "../models/pipelines.js";
+import { getAllCommonUsers, getEventsByUser } from "../models/pipelines.js";
 
 export class UserController {
 
@@ -37,7 +37,8 @@ export class UserController {
 
                 const userSaved = await user.save();
                 const { password, ...userResponse } = userSaved.toObject();
-                res.status(201).send(userSaved)
+                // Return the user object without the password
+                res.status(201).send(userResponse)
             }
         } catch (error) {
             res.status(400).json({
@@ -96,10 +97,8 @@ export class UserController {
 
             const email = req.user.email
 
-            const users = await User.find({
-                admin: { $ne: true },
-                email: { $ne: email }
-            }, "-password");
+            const users = await getAllCommonUsers(email)
+            
             res.status(200).json(users);
         } catch (error) {
             res.status(500).send("Error fetching users");

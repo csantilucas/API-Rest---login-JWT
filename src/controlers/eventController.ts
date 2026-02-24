@@ -26,7 +26,7 @@ export class EventController {
             const event = new Event({
                 title: req.body.title,
                 description: req.body.description,
-                local: req.body.description,
+                local: req.body.local,
                 date: req.body.date,
                 capacity: req.body.capacity,
                 organizerId: userID
