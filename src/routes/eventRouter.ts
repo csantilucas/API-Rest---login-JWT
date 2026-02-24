@@ -10,8 +10,7 @@ const authController = new AuthController()
 const eventController = new EventController();
 
 router.post("/register",
-    authController.auth.bind(authController), 
-    authController.authAdmin.bind(authController),
+    
     eventController.registerEvent.bind(eventController)
 
 )
@@ -22,7 +21,11 @@ router.post("/register/link/:eventID",
 );
 
 
-
+router.get("/:eventID/users",
+    authController.auth.bind(authController), 
+    authController.authAdmin.bind(authController),
+    eventController.listUserEvents.bind(eventController)
+)
 
 
 

@@ -13,6 +13,6 @@ export const LinkSchema = new Schema<link>({
   subscribedAt: { type: Date, default: Date.now }
 });
 
-LinkSchema.index({ eventId: 1, userId: 1 }, { unique: true });
+LinkSchema.index({ eventID: 1, userID: 1 }, { unique: true });
 
-export const Link = model<link>('Subscription', LinkSchema);
+export const Link = model<link>('Link', LinkSchema);

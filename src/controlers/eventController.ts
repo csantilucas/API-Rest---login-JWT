@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import { loginValidate, registerValidate, registerValidateEvent, registerValidateLinkEvent } from "./validate.js";
+import { getUsersByEvent } from "../models/pipelines.js";
 
 
 
@@ -25,6 +26,7 @@ export class EventController {
             const event = new Event({
                 title: req.body.title,
                 description: req.body.description,
+                local: req.body.description,
                 date: req.body.date,
                 capacity: req.body.capacity,
                 organizerId: userID
@@ -44,8 +46,6 @@ export class EventController {
 
     }
 
-
-
     async linkEvent(req: Request, res: Response) {
 
         try {
@@ -55,6 +55,7 @@ export class EventController {
 
             const userID = req.user.id;
             const eventID = req.params.eventID as string;
+
 
             const jaInscrito = await Link.findOne({ eventID, userID } as any);
             if (jaInscrito) return res.status(400).send("Você já está inscrito!");
@@ -83,8 +84,6 @@ export class EventController {
         }
     }
 
-
-
     listAll = async (req: Request, res: Response) => {
         try {
             const email: string = req.user.email
@@ -99,10 +98,15 @@ export class EventController {
     listUserEvents = async (req: Request, res: Response) => {
         try {
 
+            const eventID:string = req.params.eventID as string
+            const users = await getUsersByEvent(eventID)
+            res.status(200).json(users)
+
         } catch (error) {
             res.status(500).send("Error fetching events");
         }
     }
+
 
 }
 

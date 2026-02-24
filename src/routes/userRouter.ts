@@ -20,6 +20,11 @@ router.get("/getUsers",
     userController.listAll.bind(userController) // O último envia a resposta
 );
 
+router.get("/myEvents",
+    authController.auth.bind(authController),
+    userController.myEvents.bind(userController)
+)
+
 
 
 

@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import { loginValidate, registerValidate } from "./validate.js";
+import { getEventsByUser } from "../models/pipelines.js";
 
 export class UserController {
 
@@ -27,6 +28,9 @@ export class UserController {
                 const user = new User({
                     name: req.body.name,
                     email: req.body.email,
+                    phone: req.body.phone,
+                    cpf: req.body.cpf,
+                    contaSicoob: req.body.contaSicoob,
                     password: hashPass,
                     admin: true
                 })
@@ -50,8 +54,8 @@ export class UserController {
 
         try {
 
-            
-            const { error } = loginValidate(req.body); 
+
+            const { error } = loginValidate(req.body);
             if (error) return res.status(400).send(error.message);
 
             let findUser = await User.findOne({ "email": req.body.email })
@@ -62,7 +66,7 @@ export class UserController {
 
             if (!process.env.TOKEN_SECRET) return
             const token = createToken(
-                { name: findUser.name, id: findUser.id, email: findUser.email, admin: findUser.admin }, 
+                { name: findUser.name, id: findUser.id, email: findUser.email, admin: findUser.admin },
                 process.env.TOKEN_SECRET
             );
             res.header("Authorization", token).send({ message: "User logged", token });
@@ -78,13 +82,23 @@ export class UserController {
 
     }
 
+    async myEvents(req:Request, res:Response){
+        try{
+            
+            
+            res.status(200).json(await getEventsByUser(req.user.id))
+        }catch(erro){
+            res.status(400).send("User not Find")
+        }
+    }
 
     listAll = async (req: Request, res: Response) => {
         try {
-            const email:string = req.user.email
-            console.log(email)
-            const users = await User.find({"email": {$ne:email}}, "-password"); // Busca todos exceto a senha
-            res.send(users);
+
+            const users = await User.find({
+                admin: { $ne: true },       
+            }, "-password"); 
+            res.status(200).json(users);
         } catch (error) {
             res.status(500).send("Error fetching users");
         }
