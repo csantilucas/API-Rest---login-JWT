@@ -32,11 +32,10 @@ export class UserController {
                     cpf: req.body.cpf,
                     contaSicoob: req.body.contaSicoob,
                     password: hashPass,
-                    admin: true
+
                 })
 
                 const userSaved = await user.save();
-                // Removendo a senha do retorno por segurança
                 const { password, ...userResponse } = userSaved.toObject();
                 res.status(201).send(userSaved)
             }
@@ -82,12 +81,12 @@ export class UserController {
 
     }
 
-    async myEvents(req:Request, res:Response){
-        try{
-            
-            
+    async myEvents(req: Request, res: Response) {
+        try {
+
+
             res.status(200).json(await getEventsByUser(req.user.id))
-        }catch(erro){
+        } catch (erro) {
             res.status(400).send("User not Find")
         }
     }
@@ -95,9 +94,12 @@ export class UserController {
     listAll = async (req: Request, res: Response) => {
         try {
 
+            const email = req.user.email
+
             const users = await User.find({
-                admin: { $ne: true },       
-            }, "-password"); 
+                admin: { $ne: true },
+                email: { $ne: email }
+            }, "-password");
             res.status(200).json(users);
         } catch (error) {
             res.status(500).send("Error fetching users");
