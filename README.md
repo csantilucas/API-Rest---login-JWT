@@ -2,7 +2,6 @@
 
 ## Project:
 
-
 ## dependences:
 
 > - express
@@ -12,5 +11,6 @@
 > - bcrypt
 > - webtoken
 > - joi - @hapi/joi
+> - serverless-http
 
 ## Routes

@@ -2,7 +2,7 @@ import dotenv from "dotenv"
 import express from "express"
 const app = express()
 dotenv.config()
-const port = process.env.PORT
+
 
 //ROTAS PARA IMPORTAR -----------
 import userRoutes from "./routes/userRouter.js"
@@ -17,5 +17,5 @@ app.use("/user", userRoutes)
 app.use("/event", eventRoutes)
 app.use("/admin", adminRoutes)
 
-app.listen(port,() =>{console.log(`Server Running on localhost:${port}`)})
 
+export default app;

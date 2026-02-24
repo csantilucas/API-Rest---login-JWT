@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./dist/app.js",
+    "start": "node ./dist/src/api/server.js",
     "build": "npx tsc",
-    "dev": "npx tsx --watch ./src/app.ts",
+    "vercel-build":"npm run build",
+    "dev": "npx tsx --watch ./src/api/server.ts",
     "test": "node .src/main.js",
     "setup": "echo installing all dependencies && npm install"
   },
@@ -29,6 +30,7 @@
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.1",
+    "serverless-http": "^4.0.0",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
