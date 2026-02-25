@@ -2,7 +2,7 @@ import { type Request, type Response, type NextFunction } from "express";
 import { User } from "../models/User.js";
 import { hashCompare, hashPassword } from "../utils/hash.js";
 import { createToken } from "../utils/jwt.js";
-
+import dotenv from "dotenv"
 
 import { loginValidate, registerValidate } from "./validate.js";
 import { getAllCommonUsers, getEventsByUser } from "../models/pipelines.js";

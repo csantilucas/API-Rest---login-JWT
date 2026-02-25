@@ -3,6 +3,7 @@ import { EventController } from "../controlers/eventController.js";
 import { AuthController } from "../controlers/authController.js";
 
 
+
 const router = express.Router()
 
 
