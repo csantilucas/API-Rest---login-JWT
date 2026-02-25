@@ -2,7 +2,6 @@ import { type Request, type Response, type NextFunction } from "express";
 import { User } from "../models/User.js";
 import { hashCompare, hashPassword } from "../utils/hash.js";
 import { createToken } from "../utils/jwt.js";
-import dotenv from "dotenv"
 
 
 import { loginValidate, registerValidate } from "./validate.js";
@@ -64,10 +63,10 @@ export class UserController {
             const passUser: boolean = await hashCompare(req.body.password, findUser.password)
             if (!passUser) return res.status(400).send("incorret email or password")
 
-            if (!process.env.TOKEN_SECRET) return
+            if (!process.env.JWT_SECRET) return
             const token = createToken(
                 { name: findUser.name, id: findUser.id, email: findUser.email, admin: findUser.admin },
-                process.env.TOKEN_SECRET
+                process.env.JWT_SECRET
             );
             res.header("Authorization", token).send({ message: "User logged", token });
 

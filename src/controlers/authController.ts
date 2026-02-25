@@ -1,7 +1,5 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { testToken } from "../utils/jwt.js";
-import dotenv from "dotenv"
-//dotenv.config()
 
 declare global {
     namespace Express {
@@ -28,7 +26,7 @@ export class AuthController {
         }
 
         try {
-            const userVerified = testToken(token, process.env.TOKEN_SECRET!)
+            const userVerified = testToken(token, process.env.JWT_SECRET!)
             req.user = userVerified
             next()
         } catch (error) {
