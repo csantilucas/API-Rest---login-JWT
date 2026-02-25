@@ -25,7 +25,6 @@ export async function getUsersByEvent(eventID: string) {
         $project: {
             _id: 0, // Remove o ID do link (opcional)
             dataInscricao: "$subscribedAt", // Pega o valor do link
-            idUsuario: "$usuario_detalhes._id", // "Sobe" o campo para a raiz
             nome: "$usuario_detalhes.name",
             email: "$usuario_detalhes.email",
             telefone: "$usuario_detalhes.phone",
