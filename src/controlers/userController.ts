@@ -71,10 +71,10 @@ export class UserController {
             );
             res.header("Authorization", token).send({ message: "User logged", token });
 
-        } catch (error) {
+        } catch (error:any) {
             res.status(400).json({
                 "error": "400",
-                "mensage": "bad request"
+                "mensage": error.mensage
             }
             )
         }
