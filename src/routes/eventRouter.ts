@@ -29,8 +29,6 @@ router.get("/:eventID/users",
 )
 
 router.get("/",
-    authController.auth.bind(authController),
-    authController.authAdmin.bind(authController),
     eventController.listAll.bind(eventController)
 )
 
