@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./dist/src/api/server.js",
     "build": "npx tsc",
-    "vercel-build":"npm run build",
+    "vercel-build": "npm run build",
     "dev": "npx tsx --watch ./src/api/server.ts",
     "test": "node .src/main.js",
     "setup": "echo installing all dependencies && npm install"
