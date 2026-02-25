@@ -78,6 +78,7 @@ export class UserController {
             });
         }
     }
+    
 
     async myEvents(req: Request, res: Response) {
         try {
