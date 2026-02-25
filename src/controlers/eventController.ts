@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import { loginValidate, registerValidate, registerValidateEvent, registerValidateLinkEvent } from "./validate.js";
-import { getUsersByEvent } from "../models/pipelines.js";
+import { getUsersByEvent, listEvents } from "../models/pipelines.js";
 
 
 
@@ -86,10 +86,8 @@ export class EventController {
 
     listAll = async (req: Request, res: Response) => {
         try {
-            const email: string = req.user.email
-            console.log(email)
-            const users = await Event.find({});
-            res.send(users);
+            const events = await listEvents()
+            res.status(200).json(events)
         } catch (error) {
             res.status(500).send("Error fetching events");
         }
@@ -97,11 +95,9 @@ export class EventController {
 
     listUserEvents = async (req: Request, res: Response) => {
         try {
-
             const eventID:string = req.params.eventID as string
             const users = await getUsersByEvent(eventID)
             res.status(200).json(users)
-
         } catch (error) {
             res.status(500).send("Error fetching events");
         }
