@@ -34,7 +34,8 @@ export class EventController {
 
 
             const eventSaved = await event.save();
-            res.status(201)
+            res.status(201).send("Evento salvo")
+
         } catch (error:any) {
             res.status(400).json({
                 "error": "400",
