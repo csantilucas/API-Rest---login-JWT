@@ -10,11 +10,9 @@ import adminRoutes from "./routes/adminRouter.js"
 import eventRoutes from "./routes/eventRouter.js"
 import { connection } from "./database/connection.js"
 
-app.use(express.json());
+connection()
 
-(async () => {
-    await connection();
-})();
+app.use(express.json());
 app.use("/user", userRoutes)
 app.use("/event", eventRoutes)
 app.use("/admin", adminRoutes)
