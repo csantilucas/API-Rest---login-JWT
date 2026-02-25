@@ -3,7 +3,7 @@ import { User } from "../models/User.js";
 import { hashCompare, hashPassword } from "../utils/hash.js";
 import { createToken } from "../utils/jwt.js";
 import dotenv from "dotenv"
-dotenv.config()
+
 
 import { loginValidate, registerValidate } from "./validate.js";
 import { getAllCommonUsers, getEventsByUser } from "../models/pipelines.js";
@@ -78,8 +78,6 @@ export class UserController {
             }
             )
         }
-
-
     }
 
     async myEvents(req: Request, res: Response) {
