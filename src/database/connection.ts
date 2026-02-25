@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import dotenv from "dotenv"
 
 export async function connection() {
 
