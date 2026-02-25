@@ -39,12 +39,12 @@ export class UserController {
                 // Return the user object without the password
                 res.status(201).send(userResponse)
             }
-        } catch (error) {
+        } catch (error: any) {
             res.status(400).json({
                 "error": "400",
-                "mensage": "bad request"
-            }
-            )
+                "message": error.message, // Aqui o erro vai aparecer no seu Postman/Insomnia
+                "stack": error.name // Diz se o erro é 'ValidationError', 'MongoError', etc.
+            });
         }
     }
 
@@ -63,19 +63,19 @@ export class UserController {
             const passUser: boolean = await hashCompare(req.body.password, findUser.password)
             if (!passUser) return res.status(400).send("incorret email or password")
 
-            if (!process.env.JWT_SECRET) return
+            if (!process.env.TOKEN_SECRET) return
             const token = createToken(
                 { name: findUser.name, id: findUser.id, email: findUser.email, admin: findUser.admin },
-                process.env.JWT_SECRET
+                process.env.TOKEN_SECRET
             );
             res.header("Authorization", token).send({ message: "User logged", token });
 
-        } catch (error) {
+        } catch (error: any) {
             res.status(400).json({
                 "error": "400",
-                "mensage": "Bad Request"
-            }
-            )
+                "message": error.message, // Aqui o erro vai aparecer no seu Postman/Insomnia
+                "stack": error.name // Diz se o erro é 'ValidationError', 'MongoError', etc.
+            });
         }
     }
 
@@ -95,7 +95,7 @@ export class UserController {
             const email = req.user.email
 
             const users = await getAllCommonUsers(email)
-            
+
             res.status(200).json(users);
         } catch (error) {
             res.status(500).send("Error fetching users");
