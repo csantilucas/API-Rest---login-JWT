@@ -12,9 +12,8 @@ import { connection } from "./database/connection.js"
 
 app.use(express.json());
 
-(async () => {
-    await connection();
-})();
+connection();
+
 app.use("/user", userRoutes)
 app.use("/event", eventRoutes)
 app.use("/admin", adminRoutes)
