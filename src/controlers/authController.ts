@@ -1,7 +1,7 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { testToken } from "../utils/jwt.js";
 import dotenv from "dotenv"
-dotenv.config()
+//dotenv.config()
 
 declare global {
     namespace Express {

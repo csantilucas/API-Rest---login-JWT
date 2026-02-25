@@ -2,7 +2,7 @@ import { type Request, type Response, type NextFunction } from "express";
 import { Event } from "../models/Event.js";
 import { Link } from "../models/Link.js";
 import dotenv from "dotenv"
-dotenv.config()
+//dotenv.config()
 
 import { loginValidate, registerValidate, registerValidateEvent, registerValidateLinkEvent } from "./validate.js";
 import { getUsersByEvent, listEvents } from "../models/pipelines.js";
